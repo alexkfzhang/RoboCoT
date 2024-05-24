@@ -1,0 +1,59 @@
+defaults:
+  - _self_
+  - agent: agent
+  - suite: dmc
+  - override hydra/launcher: submitit_local
+
+# Root Dir
+root_dir: '/root/fairseq-main/examples/MMPT/exp_local'
+
+# replay buffer
+replay_buffer_size: 150000
+replay_buffer_num_workers: 2
+nstep: 3
+batch_size: 256 # 128
+# misc
+seed: 2
+device: cuda
+save_video: true
+save_train_video: true
+use_tb: true
+
+# experiment
+obs_type: 'pixels' # pixels, features
+
+save_snapshot: true
+
+frame_stack: 3
+action_repeat: 2
+
+seed: 0
+
+discount: 0.99
+
+
+
+num_eval_episodes: 20
+
+
+device: ${device}
+lr: 1e-4
+critic_target_tau: 0.01
+update_every_steps: 2
+use_tb: ${use_tb}
+num_expl_steps: 0 #2000
+hidden_dim: ${suite.hidden_dim}
+feature_dim: 50
+stddev_schedule: 0.1 #'linear(1.0,0.1,500000)'
+stddev_clip: 0.3
+augment: True
+update_target_every: 10000
+
+# train settings
+num_train_frames: 1100000
+num_seed_frames: 12000
+
+# eval
+eval_every_frames: 20000
+
+
